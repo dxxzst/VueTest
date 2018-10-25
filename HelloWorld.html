@@ -10,14 +10,84 @@
     <div id="app1">
         <p>{{ message }}</p>
     </div>
+    <div id="app2">
+        <span v-bind:title="message">鼠标悬停几秒钟查看此处动态绑定的提示信息！</span>
+    </div>
+    <div id="app3">
+        <p v-if="seen">你看到我了</p>
+    </div>
+    <div id="app4">
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.text }}
+            </li>
+        </ol>
+    </div>
+    <div id="app5">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">逆转消息</button>
+    </div>
+    <div id="app6">
+        <p>{{ message }}</p>
+        <input v-model='message'>
+    </div>
 </body>
 <script type="text/javascript">
-var app1 = new Vue({
-    el:'#app1',
-    data:{
-        message: 'Hello World'
-    }
-})
+    var app6 = new Vue({
+        el: '#app6',
+        data: {
+            message: '请输入文字'
+        }
+    })
+
+    var app5 = new Vue({
+        el: "#app5",
+        data: {
+            message: 'Hello Vue.js!'
+        },
+        methods: {
+            reverseMessage() {
+                this.message = this.message.split('').reverse().join('');
+            }
+        }
+    })
+
+    var app4 = new Vue({
+        el: '#app4',
+        data: {
+            todos: [{
+                    text: '学习 JavaScript'
+                },
+                {
+                    text: '学习 Vue'
+                },
+                {
+                    text: '整个牛项目'
+                }
+            ]
+        }
+    })
+
+    var app3 = new Vue({
+        el: '#app3',
+        data: {
+            seen: false
+        }
+    })
+
+    var app2 = new Vue({
+        el: '#app2',
+        data: {
+            message: '页面加载于 ' + new Date().toLocaleString()
+        }
+    })
+
+    var app1 = new Vue({
+        el: '#app1',
+        data: {
+            message: 'Hello World'
+        }
+    })
 </script>
 
 </html>

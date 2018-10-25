@@ -1,0 +1,59 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 2.0 Hello Vue component</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app1">
+        <ol>
+            <todo-item1></todo-item1>
+            <todo-item1></todo-item1>
+        </ol>
+    </div>
+    <div id="app2">
+        <ol>
+            <todo-item2 v-bind:todo="tempData" :key="tempData.id"></todo-item2>
+            <todo-item2 v-for="item in items" v-bind:todo="item" :key="item.id"></todo-item2>
+        </ol>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.component('todo-item1', {
+        template: '<li>这是个待办项</li>'
+    })
+    Vue.component('todo-item2', {
+        props: ['todo'],
+        template: '<li>{{ todo.text }}</li>'
+    });
+
+    var app1 = new Vue({
+        el: '#app1'
+    })
+    var app2 = new Vue({
+        el: '#app2',
+        data: {
+            tempData: {
+                id: -1,
+                text: 'tempData'
+            },
+            items: [{
+                    id: 0,
+                    text: '蔬菜'
+                },
+                {
+                    id: 1,
+                    text: '奶酪'
+                },
+                {
+                    id: 2,
+                    text: '随便其它什么人吃的东西'
+                }
+            ]
+        }
+    })
+</script>
+
+</html>
