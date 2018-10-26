@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 2.0 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app1">
+        <p>Mustache 语法不能作用在 HTML 特性上，遇到这种情况应该使用 v-bind 指令：</p>
+        <p v-once>Message：{{ message }}</p>
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <br>
+        <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+        <br>
+        <div v-bind:id="dynamicId">动态 id</div>
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+        <br>
+        <p>Message：{{ message + ' ok, add new' }}</p>
+        <p>{{ message ? 'YES' : 'NO' }}</p>
+        <p>{{ message.split('').reverse().join('')}}</p>
+        <br>
+        <a v-bind:href="url">完整 {{ url }}</a>
+        <a :href="url">简写 {{ url }}</a>
+        <br>
+        <a v-on:click="doSomething">完整</a>
+        <a @click="doSomething">简写</a>
+    </div>
+</body>
+<script type="text/javascript">
+    var app1 = new Vue({
+        el: '#app1',
+        data: {
+            message: 'Hello World',
+            rawHtml: '<span style="color:red">This should be red</span>',
+            dynamicId: 'okfine',
+            isButtonDisabled: true,
+            url: 'http://baidu.com'
+        },
+        methods: {
+            doSomething() {
+                alert('doSomething');
+            }
+        }
+    })
+</script>
+
+</html>
