@@ -7,12 +7,44 @@
 </head>
 
 <body>
+    <strong>在将 v-bind 用于 class 和 style 时，Vue.js 做了专门的增强。表达式结果的类型除了字符串之外，还可以是对象或数组。</strong>
     <div id="example">
-       
+        <div v-bind:class="{ active: isActive }">active 这个 class 存在与否将取决于数据属性 isActive 的 truthiness</div>
+        <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }">你可以在对象中传入更多属性来动态切换多个
+            class。此外，v-bind:class 指令也可以与普通的 class 属性共存
+        </div>
+        <div class="static" v-bind:class="classObject">绑定的数据对象不必内联定义在模板里</div>
+        <div v-bind:class="classObject2">绑定一个返回对象的计算属性</div>
+        <div v-bind:class="[activeClass, errorClass]">我们可以把一个数组传给 v-bind:class，以应用一个 class 列表</div>
+        <div v-bind:class="[isActive ? activeClass : '', errorClass]">如果你也想根据条件切换列表中的 class，可以用三元表达式</div>
+        <div v-bind:class="[{ active: isActive }, errorClass]">在数组语法中也可以使用对象语法</div>
     </div>
 </body>
 <script type="text/javascript">
-    
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            isActive: true,
+            hasError: true,
+            classObject: {
+                active: true,
+                'text-danger': false
+            },
+            error: {
+                type: 'fatal'
+            },
+            activeClass: ['active', 'temp'],
+            errorClass: 'text-danger'
+        },
+        computed: {
+            classObject2: function () {
+                return {
+                    active: this.isActive && !this.error,
+                    'text-danger': this.error && this.error.type === 'fatal'
+                }
+            }
+        }
+    })
 </script>
 
 </html>
