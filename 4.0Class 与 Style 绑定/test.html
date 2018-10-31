@@ -18,6 +18,11 @@
         <div v-bind:class="[activeClass, errorClass]">我们可以把一个数组传给 v-bind:class，以应用一个 class 列表</div>
         <div v-bind:class="[isActive ? activeClass : '', errorClass]">如果你也想根据条件切换列表中的 class，可以用三元表达式</div>
         <div v-bind:class="[{ active: isActive }, errorClass]">在数组语法中也可以使用对象语法</div>
+        <br>
+        <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">v-bind:style 的对象语法十分直观——看着非常像 CSS，但其实是一个
+            JavaScript 对象</div>
+        <div v-bind:style="styleObject">直接绑定到一个样式对象通常更好，这会让模板更清晰</div>
+        <div v-bind:style="[styleObject, overridingStyles]">v-bind:style 的数组语法可以将多个样式对象应用到同一个元素上</div>
     </div>
 </body>
 <script type="text/javascript">
@@ -34,11 +39,20 @@
                 type: 'fatal'
             },
             activeClass: ['active', 'temp'],
-            errorClass: 'text-danger'
+            errorClass: 'text-danger',
+            activeColor: 'red',
+            fontSize: 30,
+            styleObject: {
+                color: "blue",
+                fontSize: 20 + 'px'
+            },
+            overridingStyles: {
+                "background-color": 'grey'
+            }
         },
         computed: {
             classObject2: function () {
-                var classRet =  {
+                var classRet = {
                     active: this.isActive && !this.error,
                     'text-danger': this.error && this.error.type === 'fatal'
                 }
