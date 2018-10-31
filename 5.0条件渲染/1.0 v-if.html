@@ -12,17 +12,54 @@
         <h2 v-if="ok">YES</h2>
         <h2 v-else>NO</h2>
         <template v-if="ok">
-            <h1>Title</h1>
+            <h1>使用template</h1>
             <p>Paragraph 1</p>
             <p>Paragraph 2</p>
         </template>
+        <div v-if="randomNum > 0.5">you see me</div>
+        <div v-else>you don't see me</div>
+        <br>
+        <div>
+            v-else-if
+            <div v-if="type === 'A'"> A </div>
+            <div v-else-if="type === 'B'"> B </div>
+            <div v-else-if="type === 'C'"> C </div>
+            <div v-else> Not A/B/C </div>
+        </div>
+        <br>
+        <template v-if="loginType === 'username'">
+            <label>UserName</label>
+            <input placeholder="UserName" key="username-input">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Email" key="email-input">
+        </template>
+        <button v-on:click="toggle()">toggle</button>
+        <br>
+        <div>v-show 不支持 template 元素，也不支持 v-else</div>
+        <div v-show="randomNum > 0.5">v-show 的元素始终会被渲染并保留在 DOM 中</div>
     </div>
 </body>
 <script type="text/javascript">
     var vm = new Vue({
         el: '#example',
         data: {
-            ok: 'ok'
+            ok: 'ok',
+            randomNum: Math.random(),
+            type: '',
+            loginType: 'username'
+        },
+        mounted: function () {
+            var that = this;
+            setInterval(function () {
+                that.randomNum = Math.random();
+            }, 1000);
+        },
+        methods: {
+            toggle: function () {
+                this.loginType = this.loginType === 'username' ? "email" : "username";
+            }
         }
     })
 </script>
