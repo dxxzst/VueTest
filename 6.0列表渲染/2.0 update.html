@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>6.0 v-for</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        <strong>数组的变异方法 push() pop() shift() unshift() splice() sort() reverse()</strong><br>
+        <strong>数组的非变异方法 filter(), concat(), slice()</strong>
+        <br>
+        <ul>
+            <li v-for="n in evenNumbers">显示过滤 {{ n }}</li>
+        </ul>
+        <br>
+        <div>
+            一段取值范围:
+            <span v-for="n in 10">{{ n }} </span>
+        </div>
+        <br>
+        <strong>v-for on a template</strong>
+        <ul>
+            <template v-for="item in items">
+                <li>{{ item.msg }}</li>
+                <li class="divider" role="presentation">temp</li>
+            </template>
+        </ul>
+        <br>
+        <strong>v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中</strong>
+        <ul v-if="todos.length">
+            <li v-for="todo in todos">
+                {{ todo }}
+            </li>
+        </ul>
+        <p v-else>No todos left!</p>
+    </div>
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            numbers: [1, 2, 3, 4, 5],
+            items: [{
+                msg: 'message 1'
+            }],
+            todos: []
+        },
+        computed: {
+            evenNumbers: function () {
+                return this.numbers.filter(function (number) {
+                    return number % 2 === 0
+                })
+            }
+        }
+    })
+</script>
+
+</html>
