@@ -38,10 +38,11 @@
         },
         computed: {
             classObject2: function () {
-                return {
+                var classRet =  {
                     active: this.isActive && !this.error,
                     'text-danger': this.error && this.error.type === 'fatal'
                 }
+                return classRet;
             }
         }
     })
