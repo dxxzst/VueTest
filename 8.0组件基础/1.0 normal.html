@@ -19,11 +19,18 @@
         <blog-post2 v-for="post in posts" :key="post.id + '-e2'" :post="post"></blog-post2><br><br>
         <strong>通过事件向父级组件发送消息</strong>
         <div v-bind:style="{ fontSize: postFontSize + 'em' }">
-            <blog-post2 v-for="post in posts" :key="post.id + '-e3'" :post="post" @enlarge="postFontSize += $event"></blog-post2><br><br>
+            <blog-post2 v-for="post in posts" :key="post.id + '-e3'" :post="post" @enlarge="postFontSize += $event"></blog-post2>
         </div>
+        <br><br>
+        <strong>在组件上使用 v-model </strong><br>
+        <custom-input v-model="putString"></custom-input> {{ putString }}
     </div>
 </body>
 <script type="text/javascript">
+    Vue.component('custom-input', {
+        props: ['value'],
+        template: `<input v-bind:value="value" v-on:input="$emit('input', $event.target.value)">`
+    });
     Vue.component('button-counter', {
         data() {
             return {
@@ -49,6 +56,7 @@
     var vm = new Vue({
         el: '#example',
         data: {
+            putString: '',
             postFontSize: 1,
             posts: [{
                     id: 1,
