@@ -14,7 +14,13 @@
         <button-counter></button-counter><br>
         <strong>两种组件的注册类型：全局注册和局部注册</strong><br><br>
         <strong>通过 Prop 向子组件传递数据</strong>
-        <blog-post title="My journey with Vue"></blog-post>
+        <blog-post v-for="post in posts" :key="post.id + '-e1'" :title="post.title"></blog-post><br><br>
+        <strong>单个根元素</strong>
+        <blog-post2 v-for="post in posts" :key="post.id + '-e2'" :post="post"></blog-post2><br><br>
+        <strong>通过事件向父级组件发送消息</strong>
+        <div v-bind:style="{ fontSize: postFontSize + 'em' }">
+            <blog-post2 v-for="post in posts" :key="post.id + '-e3'" :post="post" @enlarge="postFontSize += $event"></blog-post2><br><br>
+        </div>
     </div>
 </body>
 <script type="text/javascript">
@@ -30,10 +36,38 @@
         props: ['title'],
         template: '<h3>{{ title }}</h3>'
     });
+    Vue.component('blog-post2', {
+        props: ['post'],
+        template: `
+            <div class="blog-post">
+                <h3>{{ post.title }}</h3>
+                <button @click='$emit("enlarge", 0.1)'>Enlarge text</button>
+                <div v-html="post.content"></div>
+            </div>`
+    });
 
     var vm = new Vue({
         el: '#example',
-        data: {}
+        data: {
+            postFontSize: 1,
+            posts: [{
+                    id: 1,
+                    title: 'My journey with Vue',
+                    content: '<span>My journey with Vue content</span>'
+                },
+                {
+                    id: 2,
+                    title: 'Blogging with Vue',
+                    content: '<span>Blogging with Vue content</span>'
+
+                },
+                {
+                    id: 3,
+                    title: 'Why Vue is so fun',
+                    content: '<span>Why Vue is so fun content</span>'
+                }
+            ]
+        }
     })
 </script>
 
