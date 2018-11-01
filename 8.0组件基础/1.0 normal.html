@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>8..0</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        <strong>Vue 组件基本示例: data 必须是一个函数</strong><br>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter><br>
+        <strong>两种组件的注册类型：全局注册和局部注册</strong><br><br>
+        <strong>通过 Prop 向子组件传递数据</strong>
+        <blog-post title="My journey with Vue"></blog-post>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.component('button-counter', {
+        data() {
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    });
+    Vue.component('blog-post', {
+        props: ['title'],
+        template: '<h3>{{ title }}</h3>'
+    });
+
+    var vm = new Vue({
+        el: '#example',
+        data: {}
+    })
+</script>
+
+</html>
