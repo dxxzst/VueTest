@@ -9,7 +9,9 @@
 <body>
     <div id="example">
         <strong>所有的 prop 都使得其父子 prop 之间形成了一个单向下行绑定：父级 prop 的更新会向下流动到子组件中，但是反过来则不行。</strong>
-        <my-component></my-component>
+        <br>
+        <base-checkbox v-model="lovingVue"></base-checkbox>
+        <!-- <my-component v-model="lovingVue"></my-component> -->
     </div>
 </body>
 <script type="text/javascript">
@@ -26,6 +28,16 @@
                 </template>`
     });
 
+    Vue.component('base-checkbox', {
+        model: {
+            prop: 'checked',
+            event: 'change'
+        },
+        props: {
+            checked: Boolean
+        },
+        template: `<input type="checkbox" v-bind:checked="checked" v-on:change="$emit('change', $event.target.checked)">`
+    });
     // 包含验证的组件
     Vue.component('my-component', {
         props: {
@@ -66,7 +78,7 @@
     var vm = new Vue({
         el: '#example',
         data: {
-
+            lovingVue: false
         }
     });
 </script>
