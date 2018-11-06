@@ -1,0 +1,70 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>8..0</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        <strong>如果 <navigation-link> 没有包含一个 <slot> 元素，则任何传入它的内容都会被抛弃。</strong><br>
+        <navigation-link url="http://baidu.com">GO TO BAIDU</navigation-link>
+        <h2>父组件模板的所有东西都会在父级作用域内编译；子组件模板的所有东西都会在子级作用域内编译。</h2>
+        <br><br>
+        <strong>可以通过 slot-scope 特性从子组件获取数据</strong>
+        <todo-list v-bind:todos="todos">
+            <template slot-scope="slotProps">
+                <span v-if="slotProps.todo.isComplete">√</span>
+                {{ slotProps.todo.text }}
+            </template>
+        </todo-list>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.component('navigation-link', {
+        props: ["url"],
+        template: `
+            <a v-bind:href='url' class='nav-link'>
+                <slot></slot>
+            </a>
+        `
+    });
+    Vue.component("todo-list", {
+        props: ['todos'],
+        template: `
+        <ul>
+            <li v-for="todo in todos" v-bind:key="todo.id">
+                <slot v-bind:todo="todo">
+                {{ todo.text }}
+                </slot>
+            </li>
+        </ul>
+        `
+    });
+
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            todos: [{
+                id: 0,
+                text: 'get up',
+                isComplete: true
+            }, {
+                id: 1,
+                text: 'work',
+                isComplete: false
+            }, {
+                id: 2,
+                text: 'eat',
+                isComplete: true
+            }, {
+                id: 3,
+                text: 'sleep',
+                isComplete: false
+            }]
+        }
+    });
+</script>
+
+</html>
