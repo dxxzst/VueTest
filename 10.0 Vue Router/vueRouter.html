@@ -26,12 +26,12 @@
                 visible: false
             }
         },
-        template: `
-        <el-button @click="visible = true">Button</el-button>
-            <el-dialog :visible.sync="visible" title="Hello world">
-            <p>Try Element</p>
-        </el-dialog>
-        `
+        template: `<div>
+                        <el-button @click="visible = true">Button</el-button>
+                        <el-dialog :visible.sync="visible" title="Hello world">
+                            <p>Try Element</p>
+                        </el-dialog>
+                    </div>`
     };
     const Bar = {
         template: '<div>bar</div>'
