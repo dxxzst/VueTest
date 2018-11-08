@@ -1,0 +1,64 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>10.2</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Named Views</h1>
+        <ul>
+            <li>
+                <router-link to="/">/</router-link>
+            </li>
+            <li>
+                <router-link to="/other">/other</router-link>
+            </li>
+        </ul>
+        <router-view class="view one"></router-view>
+        <router-view class="view two" name="a"></router-view>
+        <router-view class="view three" name="b"></router-view>
+    </div>
+</body>
+<script type="text/javascript">
+    const Foo = {
+        template: '<div>确保正确使用 components 配置 (带上 s)</div>'
+    };
+    const Bar = {
+        template: '<div>一个视图使用一个组件渲染，因此对于同个路由，多个视图就需要多个组件</div>'
+    };
+    const Baz = {
+        template: '<div>baz</div>'
+    };
+
+    const router = new VueRouter({
+        mode: 'history',
+        routes: [{
+            path: '/',
+            components: {
+                default: Foo,
+                a: Bar,
+                b: Baz
+            }
+        }, {
+            path: '/other',
+            components: { //展示顺序不一样
+                default: Baz,
+                a: Bar,
+                b: Foo
+            }
+        }]
+    })
+
+    new Vue({
+        router,
+        el: '#app'
+    })
+</script>
+
+</html>
