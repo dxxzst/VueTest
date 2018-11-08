@@ -11,8 +11,13 @@
 
 <body>
     <div id="app">
-        <anchored-heading v-bind:level="1">Level 1</anchored-heading>
-        <anchored-heading v-bind:level="2">Level 2</anchored-heading>
+        <anchored-heading v-bind:level="1">
+            <a name="hello-world" href="#hello-world">Hello world!</a>
+            <p>你需要知道，向组件中传递不带 slot 特性的子元素时，比如 anchored-heading 中的 Hello world!，这些子元素被存储在组件实例中的 $slots.default 中</p>
+        </anchored-heading>
+        <anchored-heading v-bind:level="2">
+            <a name="hello-world" href="#hello-world2">Hello world 2!</a>
+        </anchored-heading>
     </div>
 </body>
 <script type="text/javascript">
