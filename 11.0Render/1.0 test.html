@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>10</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <anchored-heading v-bind:level="1">Level 1</anchored-heading>
+        <anchored-heading v-bind:level="2">Level 2</anchored-heading>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.component('anchored-heading', {
+        render: function (createElement) {
+            return createElement(
+                'h' + this.level, // 标签名称
+                this.$slots.default // 子元素数组
+            )
+        },
+        props: {
+            level: {
+                type: Number,
+                required: true
+            }
+        }
+    })
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            lovingVue: false
+        }
+    });
+</script>
+
+</html>
