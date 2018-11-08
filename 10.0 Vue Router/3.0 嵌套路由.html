@@ -12,6 +12,7 @@
 <body>
     <div id="app">
         <p>
+            <router-link :to="{ name:'user', params:{id:'foo1'} }">/user/foo</router-link>
             <router-link to="/user/foo1">/user/foo</router-link>
             <router-link to="/user/foo2/profile">/user/foo/profile</router-link>
             <router-link to="/user/foo3/posts">/user/foo/posts</router-link>
@@ -43,6 +44,7 @@
     const router = new VueRouter({
         routes: [{
             path: '/user/:id',
+            name: 'user',
             component: User,
             children: [{
                 path: '', //默认
