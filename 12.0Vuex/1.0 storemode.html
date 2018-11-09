@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>10</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <show-num :state='vmNum'></show-num>
+        <show-num :state='vmNum'></show-num>
+    </div>
+</body>
+<script type="text/javascript">
+    var showNum = {
+        state: {
+            num: 0
+        },
+        setNum(newNum) {
+            var that = this;
+            var tempInteval = setInterval(function () {
+                if (that.state.num === newNum) {
+                    clearInterval(tempInteval);
+                } else {
+                    if (newNum > that.state.num) {
+                        that.state.num++;
+                    } else {
+                        that.state.num--;
+                    }
+                }
+            }, 10);
+        },
+        clearNum() {
+            this.state.num = 0;
+        }
+    };
+
+    Vue.component('show-num', {
+        props: ['state'],
+        template: `
+        <div>
+            <h1>{{ state.num }}</h1>
+        </div>`
+    })
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            vmNum: showNum.state
+        }
+    });
+</script>
+
+</html>
