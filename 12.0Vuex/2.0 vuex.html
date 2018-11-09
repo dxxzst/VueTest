@@ -12,8 +12,8 @@
     <strong>组件中调用 store 中的状态仅需要在计算属性中返回即可。触发变化也仅仅是在组件的 methods 中提交 mutation。</strong>
     <div id="app">
         <h1>{{ count }}</h1>
-        <button @click='increment'>+</button>
-        <button @click='decrement'>-</button>
+        <button @click='increment' @mousedown='keepIncrement' @mouseup='stopPress'> + </button>
+        <button @click='decrement' @mousedown='keepDecrement' @mouseup='stopPress'> - </button>
     </div>
 </body>
 <script type="text/javascript">
@@ -32,6 +32,10 @@
     });
     var vm = new Vue({
         el: '#app',
+        data:{
+            tempInterval: null,
+            timer: 500
+        },
         computed: {
             count() {
                 return store.state.count;
@@ -43,6 +47,32 @@
             },
             decrement() {
                 store.commit('decrement');
+            },
+            keepIncrement(){
+                let that = this;
+                this.tempInterval = setInterval(function(){
+                    store.commit('increment');
+                    if(that.timer > 0){
+                        that.timer -= 20;
+                        clearInterval(that.tempInterval);
+                        that.keepIncrement();
+                    }
+                }, this.timer);
+            },
+            keepDecrement(){
+                let that = this;
+                this.tempInterval = setInterval(function(){
+                    store.commit('decrement');
+                    if(that.timer > 0){
+                        that.timer -= 20;
+                        clearInterval(that.tempInterval);
+                        that.keepDecrement();
+                    }
+                }, this.timer);
+            },
+            stopPress(){
+                clearInterval(this.tempInterval);
+                this.timer = 500;
             }
         }
     });
