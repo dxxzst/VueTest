@@ -11,8 +11,8 @@
 
 <body>
     <div id="app">
-        <show-num :state='vmNum'></show-num>
-        <show-num :state='vmNum'></show-num>
+        <input v-model="inputNum" />
+        <show-num :state='vmNum'> <show-num :state='vmNum'></show-num></show-num>
     </div>
 </body>
 <script type="text/javascript">
@@ -20,10 +20,13 @@
         state: {
             num: 0
         },
+        getNum() {
+            return this.state.num
+        },
         setNum(newNum) {
             var that = this;
             var tempInteval = setInterval(function () {
-                if (that.state.num === newNum) {
+                if (Math.abs(that.state.num - newNum) < 1) {
                     clearInterval(tempInteval);
                 } else {
                     if (newNum > that.state.num) {
@@ -44,6 +47,7 @@
         template: `
         <div>
             <h1>{{ state.num }}</h1>
+            <slot></slot>
         </div>`
     })
 
@@ -51,6 +55,16 @@
         el: '#app',
         data: {
             vmNum: showNum.state
+        },
+        computed: {
+            inputNum: {
+                get() {
+                    return showNum.getNum();
+                },
+                set(newValue) {
+                    showNum.setNum(newValue);
+                }
+            }
         }
     });
 </script>
